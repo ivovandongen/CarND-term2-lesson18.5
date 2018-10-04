@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
-project(TEMPLATE)
+project(lesson18.5)
 
 set(CMAKE_CXX_STANDARD 14)
 
 # Update submodules as needed
-option(GIT_SUBMODULE "Check submodules during build" OFF)
+option(GIT_SUBMODULE "Check submodules during build" ON)
 
 # CMake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
@@ -43,19 +43,13 @@ else ()
     set(DO_CLANG_TIDY "${CLANG_TIDY}" "-fix;-fix-errors")
 endif ()
 
-# Core sources
-
-add_subdirectory(src)
-
 # Main executable
 
-add_executable(Template
+# Submodules
+git_include(Eigen)
+
+add_executable(GlobalKinematic
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     )
 
-target_link_libraries(Template core)
-
-
-# Tests
-
-add_subdirectory(test)
+target_link_libraries(GlobalKinematic Eigen)
